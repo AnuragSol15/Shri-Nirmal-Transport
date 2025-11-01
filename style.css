@@ -1,0 +1,20 @@
+/* Custom CSS file (style.css) */
+
+/* Custom colors based on the business card */
+.color-primary { background-color: #FF5722; } /* Orange */
+.color-secondary { background-color: #1E3A8A; } /* Dark Blue */
+.text-primary { color: #FF5722; }
+.text-secondary { color: #1E3A8A; }
+.border-primary { border-color: #FF5722; }
+
+/* Ensure the body font and smooth scrolling are set */
+body {
+    scroll-behavior: smooth;
+}
+/* Custom style for the placeholder image background (Hero Section) - UPDATED URL */
+.hero-bg {
+    background-image: url('sources/truck1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
