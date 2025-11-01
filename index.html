@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Nirmal & DN Transport - The Chouhan Brothers Group</title>
+    <!-- Link to Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to Custom CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Bar & Header (Section 1) -->
+    <header class="shadow-md sticky top-0 z-50 bg-white">
+        <!-- Top Contact Bar -->
+        <div class="color-secondary text-white py-2 text-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <p class="hidden sm:block">Base: 111/6, S. R. Compound, Indore</p>
+                <div class="flex items-center space-x-4">
+                    <a href="tel:+918817670032" class="flex items-center hover:text-orange-400">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74A1 1 0 0118 16.847V17a1 1 0 01-1 1h-2C7.22 18 2 12.78 2 6V3z"></path></svg>
+                        +91-88176-70032
+                    </a>
+                    <span class="text-xs color-primary px-2 py-0.5 rounded-full font-bold hidden md:block">FAST & DAILY SERVICE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <a href="#" class="flex-shrink-0">
+                    <span class="text-2xl font-bold text-secondary">Chouhan</span>
+                    <span class="text-2xl font-bold text-primary">Logistics</span>
+                    <span class="text-xs text-gray-500 block leading-3">Shri Nirmal & DN Transport</span>
+                </a>
+
+                <!-- Desktop Menu Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-secondary hover:text-primary font-medium">Home</a>
+                    <a href="#services" class="text-secondary hover:text-primary font-medium">Services</a>
+                    <a href="#coverage" class="text-secondary hover:text-primary font-medium">Coverage Area</a>
+                    <a href="#tracking" class="text-secondary hover:text-primary font-medium">Tracking</a>
+                    <a href="#contact" class="color-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition duration-300">Get Quote</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-button" class="md:hidden p-2 rounded-md text-secondary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:bg-gray-100">Home</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:bg-gray-100">Services</a>
+                <a href="#coverage" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:bg-gray-100">Coverage Area</a>
+                <a href="#tracking" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:bg-gray-100">Tracking</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium color-primary text-white hover:bg-orange-600">Get Quote</a>
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- Hero Section (Section 2) -->
+    <section id="home" class="hero-bg relative h-[60vh] md:h-[80vh] flex items-center">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <!-- The image is now set via CSS in style.css -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
+            <p class="text-lg font-semibold mb-2 text-primary">Shri Nirmal Logistics & DN Transport</p>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight">
+                Your Reliable Daily Transport Partner in Central India.
+            </h1>
+            <p class="mt-4 text-xl sm:text-2xl font-light">
+                Secure, Fast & Daily FTL/PTL Services from Indore to a vast regional network.
+            </p>
+            <a href="#contact" class="mt-8 inline-block color-primary text-white px-8 py-3 text-lg rounded-lg font-bold hover:bg-orange-600 transition duration-300">
+                Request a Quick Quote
+            </a>
+        </div>
+    </section>
+    <!-- End Hero Section -->
+
+    <!-- Tracking Feature & Quote Integration (Section 5 & 6) -->
+    <section class="py-16 color-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            
+            <!-- Tracking Box -->
+            <div id="tracking" class="bg-white p-6 rounded-lg shadow-xl md:col-span-1">
+                <h3 class="text-2xl font-bold text-secondary mb-4 border-b pb-2">Track Your Consignment</h3>
+                <p class="text-gray-600 mb-4">Enter your Bilty/Consignment Number below for instant status updates.</p>
+                <form action="#" method="POST" class="space-y-4">
+                    <input type="text" id="bilty_number" name="bilty_number" placeholder="Enter Bilty/Consignment Number" class="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                    <button type="submit" class="w-full color-primary text-white py-3 rounded-md font-semibold hover:bg-orange-600 transition duration-300">
+                        Track Shipment
+                    </button>
+                </form>
+            </div>
+
+            <!-- Quick Quote Form -->
+            <div id="contact" class="bg-white p-6 rounded-lg shadow-xl md:col-span-2">
+                <h3 class="text-2xl font-bold text-secondary mb-4 border-b pb-2">Get a Quick Quote</h3>
+                <form action="#" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Your Name" class="p-3 border border-gray-300 rounded-md" required>
+                    <input type="tel" placeholder="Your Phone (+91...)" class="p-3 border border-gray-300 rounded-md" required>
+                    <input type="text" placeholder="Moving From (e.g., Indore)" class="p-3 border border-gray-300 rounded-md" value="Indore" required>
+                    <select class="p-3 border border-gray-300 rounded-md" required>
+                        <option value="">Moving To (Select/Type City)</option>
+                        <optgroup label="Shri Nirmal Network">
+                            <option>Shajapur</option><option>Sarangpur</option><option>Pachore</option><option>Byawara</option><option>Shujalpur</option><option>Akodiya Mandi</option><option>Narsinghgarh</option><option>Berchha</option><option>Gulana</option><option>Kalapipal</option><option>kura var</option><option>kalisindh arniya kala</option><option>suthaliya</option><option>talen</option><option>boda</option>
+                        </optgroup>
+                        <optgroup label="DN Transport Network">
+                            <option>Pat(Tarana)</option><option>Dhabli Khurd</option><option>Tanodiya</option><option>piplon kalan</option><option>Badod</option><option>Agra-Malva</option><option>Susner</option><option>Nalkheda</option><option>Jirapur</option><option>Khilchipur</option><option>Khujner</option><option>Chapiheda</option><option>Machalpur</option><option>Kanad</option><option>Modi</option>
+                        </optgroup>
+                        <option>Other / Not Listed</option>
+                    </select>
+                    <textarea placeholder="Item Description / Load Details (Weight/Type)" rows="3" class="sm:col-span-2 p-3 border border-gray-300 rounded-md"></textarea>
+                    <button type="submit" class="sm:col-span-2 color-primary text-white py-3 rounded-md font-semibold hover:bg-orange-600 transition duration-300">
+                        Submit Enquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- End Tracking & Quote Section -->
+
+    <!-- Services Section (Section 3) -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-secondary sm:text-4xl">Our Dedicated Road Transport Services</h2>
+            <p class="mt-4 text-xl text-gray-600">Focusing on reliability, speed, and safety for your goods across Central India.</p>
+            
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- FTL Card -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-primary text-4xl mb-4">🚛</div>
+                    <h3 class="text-2xl font-bold text-secondary mb-3">Full Truck Load (FTL)</h3>
+                    <p class="text-gray-600">Dedicated vehicles (trucks, tempos) for single-client consignments. Ideal for high volume, secure, and time-critical deliveries. Complete control over your shipment's journey.</p>
+                </div>
+
+                <!-- PTL Card -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-primary text-4xl mb-4">📦</div>
+                    <h3 class="text-2xl font-bold text-secondary mb-3">Part Truck Load (PTL)</h3>
+                    <p class="text-gray-600">Cost-effective solution for smaller consignments. Your goods are consolidated with others heading to the same regional network, ensuring daily, swift delivery.</p>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <p class="text-lg text-gray-700 font-semibold">Our Commitment: <span class="text-primary">Fast & Daily Service</span> across all routes.</p>
+            </div>
+        </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- Coverage Area Section (Section 4) -->
+    <section id="coverage" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-secondary sm:text-4xl">Our Daily Service Network</h2>
+            <p class="mt-4 text-xl text-gray-600">Operating daily from our base in Indore, reaching key cities and villages.</p>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
+                
+                <!-- Shri Nirmal Logistics Network -->
+                <div>
+                    <h3 class="text-2xl font-bold color-primary pb-2 border-b-2 border-primary mb-4">Shri Nirmal Network</h3>
+                    <ul class="text-gray-700 text-lg space-y-2 columns-2">
+                        <li>Shajapur</li>
+                        <li>Sarangpur</li>
+                        <li>Pachore</li>
+                        <li>Byawara</li>
+                        <li>Shujalpur</li>
+                        <li>Akodiya Mandi</li>
+                        <li>Narsinghgarh</li>
+                        <li>Berchha</li>
+                        <li>Gulana</li>
+                        <li>Kalapipal</li>
+                        <li>kura var</li>
+                        <li>kalisindh arniya kala</li>
+                        <li>suthaliya</li>
+                        <li>talen</li>
+                        <li>boda</li>
+                    </ul>
+                </div>
+
+                <!-- DN Transport Network -->
+                <div>
+                    <h3 class="text-2xl font-bold text-secondary pb-2 border-b-2 border-secondary mb-4">DN Transport Network</h3>
+                    <ul class="text-gray-700 text-lg space-y-2 columns-2">
+                        <li>Pat(Tarana)</li>
+                        <li>Dhabli Khurd</li>
+                        <li>Tanodiya</li>
+                        <li>Piplon Kalan</li>
+                        <li>Badod</li>
+                        <li>Agra-Malva</li>
+                        <li>Susner</li>
+                        <li>Nalkheda</li>
+                        <li>Jirapur</li>
+                        <li>Khilchipur</li>
+                        <li>Khujner</li>
+                        <li>Chapiheda</li>
+                        <li>Machalpur</li>
+                        <li>Kanad</li>
+                        <li>Modi</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Map and Contact Link -->
+            <p class="mt-10 text-xl font-semibold text-gray-700">Can't find your location? <a href="#contact" class="text-primary hover:underline">Contact us</a> for a custom quote!</p>
+            
+            <!-- Google Maps Embed - CORRECTED URL -->
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-secondary mb-4">Find Our Office</h3>
+                <div class="relative overflow-hidden rounded-lg shadow-xl" style="height: 450px;">
+                    <!-- Embedded Map for 111/6, S. R. Compound, Rathi Transport Ke Samne, Indore -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.1260480373854!2d75.8778847!3d22.723521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fca616e1388b%3A0x13c38f18b1b117b!2sIndore%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1699988220371!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+            <!-- End Google Maps Embed -->
+
+        </div>
+    </section>
+    <!-- End Coverage Area Section -->
+
+    <!-- Business Gallery Marquee (ENLARGED) -->
+    <section class="py-12 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-secondary sm:text-4xl mb-8">Our Business Gallery</h2>
+        </div>
+        
+        <!-- Marquee for Image Scroll -->
+        <div class="overflow-hidden py-4 border-y-2 border-primary">
+            <marquee direction="left" scrollamount="8" class="flex space-x-6">
+                <!-- Image sizes increased to h-64 w-96 for a broader, bigger look -->
+                <img src="https://source.unsplash.com/384x256/?indian-truck,transportation" alt="Truck 1" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?warehouse,logistics" alt="Warehouse" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?logistics-office,india" alt="Office" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?truck-yard,transport" alt="Yard" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?goods-loading,forklift" alt="Loading" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?highway,road-transport,india" alt="Truck 2" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?business-team,meeting" alt="Team" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <!-- Repeat for continuous scroll effect -->
+                <img src="https://source.unsplash.com/384x256/?indian-truck,transportation" alt="Truck 1" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?warehouse,logistics" alt="Warehouse" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+                <img src="https://source.unsplash.com/384x256/?logistics-office,india" alt="Office" class="inline-block h-64 w-96 object-cover rounded-md mx-3 shadow-xl">
+            </marquee>
+        </div>
+    </section>
+    <!-- End Business Gallery Marquee -->
+
+    <!-- Footer (Section 7) -->
+    <footer class="color-secondary text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Company Info -->
+            <div>
+                <h4 class="text-xl font-bold text-primary mb-3">Chouhan Logistics</h4>
+                <p class="text-gray-300">Shri Nirmal Logistics & DN Transport are the leading providers of regional FTL and PTL transport solutions from Indore.</p>
+            </div>
+
+            <!-- Contact Details -->
+            <div>
+                <h4 class="text-xl font-bold mb-3">Contact Us</h4>
+                <p class="text-gray-300 mb-2">
+                    <span class="font-semibold block">Phone:</span>
+                    <a href="tel:+918817670032" class="hover:text-primary transition duration-300">+91-88176-70032</a>
+                </p>
+                <p class="text-gray-300">
+                    <span class="font-semibold block">Base Location:</span>
+                    111/6, S. R. Compound, Rathi Transport Ke Samne, Indore.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-xl font-bold mb-3">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#services" class="hover:text-primary transition duration-300">Our Services</a></li>
+                    <li><a href="#coverage" class="hover:text-primary transition duration-300">Service Coverage</a></li>
+                    <li><a href="#tracking" class="hover:text-primary transition duration-300">Track Shipment</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-400">
+            &copy; 2025 Chouhan Logistics (Shri Nirmal & DN Transport). All Rights Reserved.
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
