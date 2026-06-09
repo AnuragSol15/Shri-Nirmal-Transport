@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apply persisted theme before paint to avoid a flash (defaults to light) -->
+    <script>
+      try {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
+
+    <!-- Primary SEO meta (further managed at runtime via react-helmet-async) -->
+    <title>Shri Nirmal Logistics & DN Transport — Daily FTL/PTL from Indore</title>
+    <meta
+      name="description"
+      content="Shri Nirmal Logistics & DN Transport (Chouhan Brothers) — reliable daily FTL & PTL road transport from Indore across Central India. Get a quick quote and track consignments."
+    />
+    <meta name="theme-color" content="#1E3A8A" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shri Nirmal Logistics & DN Transport" />
+    <meta
+      property="og:description"
+      content="Reliable daily FTL & PTL road transport from Indore across Central India."
+    />
+    <meta property="og:locale" content="en_IN" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-sky-50 font-sans leading-relaxed text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

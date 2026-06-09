@@ -1,0 +1,7 @@
+# Shri Nirmal Logistics & DN Transport
+# Replace the domain below with your live custom domain before launch.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.yourdomain.com/sitemap.xml

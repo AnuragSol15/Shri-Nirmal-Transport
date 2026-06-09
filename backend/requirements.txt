@@ -1,0 +1,8 @@
+# Pinned for reproducible deploys. Render builds on Python 3.12 (see .python-version),
+# which has prebuilt wheels for all of these.
+# NOTE: if you run locally on Python 3.14, install latest instead (some pinned
+# wheels may not exist yet for 3.14): pip install fastapi "uvicorn[standard]" pydantic python-dotenv
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.4
+python-dotenv==1.0.1
