@@ -27,7 +27,7 @@ services:
       - key: SMTP_PASSWORD
         sync: false          # set in dashboard (secret)
       - key: MAIL_TO
-        value: anurag15work@gmail.com
+        value: shreenirmaldntransport@gmail.com
       - key: MAIL_FROM
         sync: false          # e.g. your verified sender
       - key: MAIL_FROM_NAME

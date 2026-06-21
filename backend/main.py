@@ -57,7 +57,7 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
 
-MAIL_TO = os.getenv("MAIL_TO", "anurag15work@gmail.com")
+MAIL_TO = os.getenv("MAIL_TO", "shreenirmaldntransport@gmail.com")
 MAIL_FROM = os.getenv("MAIL_FROM", SMTP_USER or "no-reply@shrinirmal.local")
 MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "Shri Nirmal Logistics - Website")
 

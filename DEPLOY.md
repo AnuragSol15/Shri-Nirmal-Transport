@@ -39,7 +39,7 @@ git push -u origin main
 | `SMTP_PORT` | `587` |
 | `SMTP_USER` | your SMTP login |
 | `SMTP_PASSWORD` | your SMTP key / Gmail App Password |
-| `MAIL_TO` | `anurag15work@gmail.com` |
+| `MAIL_TO` | `shreenirmaldntransport@gmail.com` |
 | `MAIL_FROM` | a verified sender address |
 | `ALLOWED_ORIGINS` | *(fill in step 5)* |
 
