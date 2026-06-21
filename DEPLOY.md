@@ -47,6 +47,9 @@ git push -u origin main
 | Key | Value |
 |---|---|
 | `VITE_QUOTES_API` | *(fill in step 5)* |
+| `VITE_WAITLIST_API` | *(fill in step 5)* |
+| `VITE_SITE_URL` | `https://www.yourdomain.com` (your real domain, **no** trailing slash) |
+| `VITE_GA_ID` | GA4 id `G-XXXXXXXXXX` (optional; blank = analytics off) |
 
 ## 4. First deploy (on `.onrender.com` URLs)
 - Note the two generated URLs, e.g. `shri-nirmal-api.onrender.com` and `shri-nirmal-ui.onrender.com`.
@@ -89,6 +92,26 @@ don't land in spam.
 
 ---
 
+## Before you launch — domain, SEO & analytics
+A few values reference a placeholder domain (`https://www.yourdomain.com`). Swap them to your real domain:
+
+1. **`VITE_SITE_URL`** (UI env in `render.yaml` + local `.env`) — drives the `og:image`,
+   `canonical`, and JSON-LD structured-data URLs that are baked into `index.html` at **build
+   time**. Set it before/at deploy, then redeploy the UI.
+2. **`ui/public/sitemap.xml`** — replace the domain in both URLs (homepage + `/privacy`).
+3. **`ui/public/robots.txt`** — replace the domain in the `Sitemap:` line.
+
+**Analytics:** set `VITE_GA_ID` to your GA4 measurement id (`G-XXXXXXXXXX`) to turn on Google
+Analytics (SPA page views are tracked on every route change). Leaving it blank loads no script.
+
+**Social share image:** `ui/public/og-image.png` (1200×630) already ships and is referenced by the
+OG/Twitter tags. To rebrand it, edit `ui/public/og-image.svg`, open `tools/og-image-generator.html`
+in a browser, click **Download og-image.png**, and replace the file in `ui/public/`.
+
+> Tip: search the repo for `yourdomain.com` to catch every placeholder at once.
+
+---
+
 ## Appendix A — Manual service creation (if not using Blueprint)
 **API:** New + → Web Service → repo → Root Dir `backend`, Runtime `Python`,
 Build `pip install -r requirements.txt`,
@@ -100,8 +123,8 @@ Add a rewrite rule: Source `/*` → Destination `/index.html` (Action: Rewrite).
 
 ## Appendix B — Local dev still works
 ```bash
-# backend  (use a Python 3.12 venv for the pinned requirements)
-cd backend && python -m venv .venv && .venv\Scripts\activate
+# backend  (use a Python 3.12 venv — newer Pythons lack prebuilt pydantic-core wheels)
+cd backend && py -3.12 -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 

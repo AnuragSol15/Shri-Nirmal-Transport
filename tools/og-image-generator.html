@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>OG Image Generator — Shri Nirmal Logistics</title>
+  <style>
+    body { margin: 0; background: #1f2937; color: #e5e7eb; font-family: 'Segoe UI', Arial, sans-serif; }
+    .bar { display: flex; align-items: center; gap: 16px; padding: 16px 24px; background: #111827; position: sticky; top: 0; }
+    .bar h1 { font-size: 16px; margin: 0; font-weight: 600; }
+    button { margin-left: auto; background: #FF5722; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .stage { padding: 24px; }
+    .card { width: 1200px; max-width: 100%; box-shadow: 0 12px 32px rgba(0,0,0,.4); }
+    .hint { padding: 0 24px 24px; font-size: 14px; color: #9ca3af; }
+    .hint code { color: #FF7A52; }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <h1>OG Image — 1200&times;630</h1>
+    <button id="dl">Download og-image.png</button>
+  </div>
+  <div class="stage">
+    <!-- Keep this SVG in sync with ui/public/og-image.svg -->
+    <svg id="og" class="card" xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Segoe UI', Arial, Helvetica, sans-serif">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#0B1220"/>
+          <stop offset="1" stop-color="#111A2E"/>
+        </linearGradient>
+        <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+          <path d="M48 0H0V48" fill="none" stroke="#F5F2ED" stroke-opacity="0.04" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="1200" height="630" fill="url(#bg)"/>
+      <rect width="1200" height="630" fill="url(#grid)"/>
+      <path d="M -40 600 L 420 360 L 800 250 L 1240 40" fill="none" stroke="#FF5722" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+      <circle cx="420" cy="360" r="6" fill="#FF5722"/>
+      <circle cx="800" cy="250" r="6" fill="#FF5722"/>
+      <rect x="0" y="0" width="1200" height="8" fill="#FF5722"/>
+      <rect x="90" y="120" width="92" height="92" rx="18" fill="#FF5722"/>
+      <text x="136" y="184" fill="#ffffff" font-size="44" font-weight="800" text-anchor="middle">SN</text>
+      <text x="206" y="160" fill="#ffffff" font-size="34" font-weight="700">Shri Nirmal Logistics</text>
+      <text x="206" y="200" fill="#FF7A52" font-size="34" font-weight="700">&amp; DN Transport</text>
+      <text x="90" y="330" fill="#ffffff" font-size="64" font-weight="800">Road transport that</text>
+      <text x="90" y="408" fill="#ffffff" font-size="64" font-weight="800">runs on <tspan fill="#FF7A52">schedule.</tspan></text>
+      <text x="90" y="470" fill="#cbd5e1" font-size="28" font-weight="500">Daily FTL &amp; PTL freight from the Indore hub, across Madhya Pradesh.</text>
+      <g fill="#94a3b8" font-size="24" font-weight="600">
+        <circle cx="100" cy="540" r="5" fill="#FF5722"/>
+        <text x="116" y="548">Insured Cargo</text>
+        <circle cx="356" cy="540" r="5" fill="#FF5722"/>
+        <text x="372" y="548">Daily Departures</text>
+        <circle cx="660" cy="540" r="5" fill="#FF5722"/>
+        <text x="676" y="548">Regional Network</text>
+      </g>
+      <text x="1110" y="548" fill="#ffffff" font-size="26" font-weight="700" text-anchor="end">+91-88176-70032</text>
+    </svg>
+  </div>
+  <p class="hint">
+    Click <strong>Download og-image.png</strong>, then move the file to
+    <code>ui/public/og-image.png</code>. The site references it for social-share previews.
+  </p>
+
+  <script>
+    document.getElementById('dl').addEventListener('click', function () {
+      var svg = document.getElementById('og');
+      var xml = new XMLSerializer().serializeToString(svg);
+      var svg64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(xml)));
+      var img = new Image();
+      img.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 630;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, 1200, 630);
+        canvas.toBlob(function (blob) {
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'og-image.png';
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, 'image/png');
+      };
+      img.src = svg64;
+    });
+  </script>
+</body>
+</html>

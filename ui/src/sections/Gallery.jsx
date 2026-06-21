@@ -1,43 +1,40 @@
 import { GALLERY } from '../data/assets';
+import { Container } from '../components/ui/Container';
+import { Section } from '../components/ui/Section';
+import { SectionHeading } from '../components/ui/SectionHeading';
 
 export function Gallery() {
   return (
-    <section className="bg-sky-50/40 py-24 dark:bg-slate-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">On the ground</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
-            Our operations gallery
-          </h2>
-        </div>
+    <Section tone="base">
+      <Container>
+        <SectionHeading eyebrow="On the road" title="Operations in motion" />
 
-        {/* Asymmetric bento-style gallery */}
-        <div className="mt-10 grid auto-rows-[180px] grid-cols-2 gap-4 md:grid-cols-4">
+        {/* Responsive 3-column grid of solid, hairline-framed cells. One hover
+            idiom: a subtle image scale within the contain-frame plus a caption
+            bar that slides up using the existing alt text. */}
+        <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-3">
           {GALLERY.map((img, i) => (
             <figure
               key={img.src}
-              className={[
-                'group relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10',
-                i === 0 ? 'col-span-2 row-span-2' : '',
-                i === 3 ? 'md:col-span-2' : '',
-              ].join(' ')}
+              className="group relative aspect-[4/3] animate-fade-in-up overflow-hidden rounded-xl border border-steel-300 bg-steel-100 shadow-e1 transition duration-200 hover:-translate-y-0.5 hover:shadow-e2 motion-reduce:animate-none motion-reduce:transition-none dark:border-steel-800 dark:bg-steel-850"
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               <img
                 src={img.src}
                 alt={img.alt}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                fetchpriority={i === 0 ? 'high' : 'low'}
+                className="h-full w-full object-cover grayscale-[0.1] transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <figcaption className="absolute bottom-3 left-3 translate-y-2 text-sm font-medium text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+
+              {/* Caption bar slides up from the bottom on hover */}
+              <figcaption className="absolute inset-x-0 bottom-0 translate-y-full bg-steel-950/85 px-4 py-3 text-sm font-medium text-steel-50 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none">
                 {img.alt}
               </figcaption>
             </figure>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import {
   Package, MapPin, Weight, User, CheckCircle2, ArrowRight, ArrowLeft,
-  Send, Loader2, X, Truck, Boxes,
+  Send, Loader2, X, Truck, Boxes, Check,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input, Textarea } from '../components/ui/Input';
 import { GlassCard } from '../components/ui/GlassCard';
+import { Section } from '../components/ui/Section';
+import { Container } from '../components/ui/Container';
+import { SectionHeading } from '../components/ui/SectionHeading';
 import { CONTACT } from '../data/site';
 
 // Owned FastAPI backend (replaces the old FormSubmit third-party wrapper).
@@ -30,7 +33,7 @@ const LOAD_TYPES = [
 ];
 
 const EMPTY = {
-  loadType: '', origin: 'Indore', destination: '', weight: '', cargo: '', name: '', phone: '',
+  loadType: '', origin: 'Indore', destination: '', weight: '', cargo: '', name: '', phone: '', email: '',
 };
 
 /** Shared <datalist> of operational towns (used by both route fields). */
@@ -47,17 +50,21 @@ function TownsDatalist({ id }) {
 export function QuoteBuilder() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState(EMPTY);
-  const [hp, setHp] = useState(''); // honeypot — real users never fill this
+  const [hp, setHp] = useState(''); // honeypot - real users never fill this
   const [submit, setSubmit] = useState('idle'); // idle | submitting | success | error
 
   const set = (key) => (e) => setData((d) => ({ ...d, [key]: e.target.value }));
+
+  // Email is optional, but if provided it must look valid before submitting.
+  const emailOk =
+    !data.email.trim() || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email.trim());
 
   const stepValid = [
     !!data.loadType,
     !!data.origin.trim() && !!data.destination.trim() &&
       data.origin.trim().toLowerCase() !== data.destination.trim().toLowerCase(),
     !!data.weight && Number(data.weight) > 0,
-    !!data.name.trim() && !!data.phone.trim(),
+    !!data.name.trim() && !!data.phone.trim() && emailOk,
   ];
 
   const canNext = stepValid[step];
@@ -83,6 +90,7 @@ export function QuoteBuilder() {
           cargo: data.cargo,
           name: data.name.trim(),
           phone: data.phone.trim(),
+          email: data.email.trim(),
           hp,
         }),
       });
@@ -102,20 +110,24 @@ export function QuoteBuilder() {
     setSubmit('idle');
   }
 
+  const sameRoute =
+    data.origin.trim() &&
+    data.origin.trim().toLowerCase() === data.destination.trim().toLowerCase();
+
   return (
-    <section id="quote" className="relative bg-slate-50 py-24 dark:bg-slate-950">
-      <div className="absolute inset-x-0 top-0 h-[40vh] bg-radial-glow opacity-30 dark:opacity-50" aria-hidden="true" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Get a Quote</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">
-            Build your freight request in 60 seconds
-          </h2>
-        </div>
+    <Section id="quote" tone="base">
+      <Container size="default">
+        <SectionHeading
+          feature
+          align="center"
+          eyebrow="Get a Quote"
+          title="Build your transport request in 60 seconds"
+          className="mx-auto max-w-2xl"
+        />
 
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-5">
           {/* Form */}
-          <GlassCard className="p-6 sm:p-8 lg:col-span-3">
+          <GlassCard className="p-6 shadow-e3 sm:p-8 lg:col-span-3">
             {/* Stepper */}
             <ol className="mb-8 flex items-center">
               {STEPS.map((label, i) => {
@@ -126,22 +138,32 @@ export function QuoteBuilder() {
                     <div className="flex items-center gap-2">
                       <span
                         className={[
-                          'grid h-8 w-8 place-items-center rounded-full text-sm font-bold transition-colors',
+                          'grid h-8 w-8 place-items-center rounded-full text-sm font-semibold transition-all duration-200',
                           done
                             ? 'bg-primary text-white'
                             : current
                               ? 'bg-primary/15 text-primary ring-2 ring-primary'
-                              : 'bg-zinc-100 text-zinc-400 dark:bg-white/5 dark:text-zinc-500',
+                              : 'bg-steel-100 text-steel-500 dark:bg-steel-850 dark:text-steel-500',
                         ].join(' ')}
                       >
                         {done ? <CheckCircle2 size={16} /> : i + 1}
                       </span>
-                      <span className={`hidden text-sm font-medium sm:block ${current ? 'text-zinc-900 dark:text-white' : 'text-zinc-400 dark:text-zinc-500'}`}>
+                      <span
+                        className={`hidden text-sm font-medium sm:block ${
+                          current
+                            ? 'text-steel-950 dark:text-steel-50'
+                            : 'text-steel-500 dark:text-steel-500'
+                        }`}
+                      >
                         {label}
                       </span>
                     </div>
                     {i < STEPS.length - 1 && (
-                      <span className={`mx-2 h-px flex-1 ${done ? 'bg-primary' : 'bg-zinc-200 dark:bg-white/10'}`} />
+                      <span
+                        className={`mx-2 h-px flex-1 transition-colors duration-200 ${
+                          done ? 'bg-primary' : 'bg-steel-300 dark:bg-steel-800'
+                        }`}
+                      />
                     )}
                   </li>
                 );
@@ -161,9 +183,9 @@ export function QuoteBuilder() {
                 className="absolute left-[-9999px] h-0 w-0 opacity-0"
               />
 
-              {/* STEP 0 — Load Type */}
+              {/* STEP 0 - Load Type */}
               {step === 0 && (
-                <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 motion-reduce:animate-none">
+                <div className="grid animate-fade-in-up gap-4 motion-reduce:animate-none sm:grid-cols-2">
                   {LOAD_TYPES.map(({ id, label, desc, icon: Icon }) => {
                     const selected = data.loadType === id;
                     return (
@@ -173,24 +195,36 @@ export function QuoteBuilder() {
                         onClick={() => setData((d) => ({ ...d, loadType: id }))}
                         aria-pressed={selected}
                         className={[
-                          'rounded-2xl border p-6 text-left transition-all duration-300',
+                          'relative rounded-xl border p-6 text-left transition-all duration-200',
                           selected
-                            ? 'border-primary/60 bg-primary/10 shadow-glow-sm'
-                            : 'border-zinc-200 bg-white hover:border-primary/40 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/30',
+                            ? 'border-primary bg-primary/10'
+                            : 'border-steel-300 bg-white hover:border-primary/40 dark:border-steel-800 dark:bg-steel-850 dark:hover:border-steel-700',
                         ].join(' ')}
                       >
-                        <Icon size={28} className={selected ? 'text-primary' : 'text-zinc-400'} aria-hidden="true" />
-                        <p className="mt-3 font-bold text-zinc-900 dark:text-white">{label}</p>
-                        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{desc}</p>
+                        {selected && (
+                          <span
+                            className="absolute right-4 top-4 grid h-5 w-5 place-items-center rounded-full bg-primary text-white"
+                            aria-hidden="true"
+                          >
+                            <Check size={13} strokeWidth={3} />
+                          </span>
+                        )}
+                        <Icon
+                          size={28}
+                          className={selected ? 'text-primary' : 'text-steel-500'}
+                          aria-hidden="true"
+                        />
+                        <p className="mt-3 font-semibold text-steel-950 dark:text-steel-50">{label}</p>
+                        <p className="mt-1 text-sm text-steel-600 dark:text-steel-400">{desc}</p>
                       </button>
                     );
                   })}
                 </div>
               )}
 
-              {/* STEP 1 — Route (datalist comboboxes: filter the network, accept custom text) */}
+              {/* STEP 1 - Route (datalist comboboxes: filter the network, accept custom text) */}
               {step === 1 && (
-                <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 motion-reduce:animate-none">
+                <div className="grid animate-fade-in-up gap-4 motion-reduce:animate-none sm:grid-cols-2">
                   <div>
                     <Input
                       label="Origin Hub"
@@ -198,7 +232,7 @@ export function QuoteBuilder() {
                       list="origin-towns"
                       value={data.origin}
                       onChange={set('origin')}
-                      placeholder="Search or type a town…"
+                      placeholder="Search or type a town..."
                       autoComplete="off"
                     />
                     <TownsDatalist id="origin-towns" />
@@ -210,21 +244,20 @@ export function QuoteBuilder() {
                       list="destination-towns"
                       value={data.destination}
                       onChange={set('destination')}
-                      placeholder="Search or type a town…"
+                      placeholder="Search or type a town..."
                       autoComplete="off"
                     />
                     <TownsDatalist id="destination-towns" />
                   </div>
-                  {data.origin.trim() &&
-                    data.origin.trim().toLowerCase() === data.destination.trim().toLowerCase() && (
-                      <p className="text-sm text-amber-600 dark:text-amber-400 sm:col-span-2">
-                        Origin and destination can’t be the same.
-                      </p>
-                    )}
+                  {sameRoute && (
+                    <p className="text-sm text-warning dark:text-warning-dark sm:col-span-2">
+                      Origin and destination can't be the same.
+                    </p>
+                  )}
                 </div>
               )}
 
-              {/* STEP 2 — Cargo */}
+              {/* STEP 2 - Cargo */}
               {step === 2 && (
                 <div className="animate-fade-in-up space-y-4 motion-reduce:animate-none">
                   <Input
@@ -236,23 +269,47 @@ export function QuoteBuilder() {
                     placeholder="e.g. 12"
                     value={data.weight}
                     onChange={set('weight')}
+                    className="tnum"
                   />
                   <Textarea
                     label="Cargo Details (optional)"
                     id="cargo"
                     rows={3}
-                    placeholder="Commodity, packaging, special handling…"
+                    placeholder="Commodity, packaging, special handling..."
                     value={data.cargo}
                     onChange={set('cargo')}
                   />
                 </div>
               )}
 
-              {/* STEP 3 — Contact */}
+              {/* STEP 3 - Contact */}
               {step === 3 && (
-                <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 motion-reduce:animate-none">
+                <div className="grid animate-fade-in-up gap-4 motion-reduce:animate-none sm:grid-cols-2">
                   <Input label="Your Name" id="name" value={data.name} onChange={set('name')} placeholder="Full name" />
-                  <Input label="Phone Number" id="phone" type="tel" value={data.phone} onChange={set('phone')} placeholder="+91…" />
+                  <Input
+                    label="Phone Number"
+                    id="phone"
+                    type="tel"
+                    value={data.phone}
+                    onChange={set('phone')}
+                    placeholder="+91..."
+                    className="tnum"
+                  />
+                  <Input
+                    label="Email (optional)"
+                    id="email"
+                    type="email"
+                    value={data.email}
+                    onChange={set('email')}
+                    placeholder="you@company.com"
+                    autoComplete="email"
+                    className="sm:col-span-2"
+                  />
+                  {data.email.trim() && !emailOk && (
+                    <p className="text-sm text-warning dark:text-warning-dark sm:col-span-2">
+                      Please enter a valid email address, or leave it blank.
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -270,7 +327,7 @@ export function QuoteBuilder() {
 
                 {isLast ? (
                   <Button type="submit" disabled={!canNext || submit === 'submitting'}>
-                    {submit === 'submitting' ? <><Loader2 size={18} className="animate-spin" /> Sending…</> : <><Send size={18} /> Submit Request</>}
+                    {submit === 'submitting' ? <><Loader2 size={18} className="animate-spin motion-reduce:animate-none" /> Sending...</> : <><Send size={18} /> Submit Request</>}
                   </Button>
                 ) : (
                   <Button type="button" onClick={() => canNext && setStep((s) => s + 1)} disabled={!canNext}>
@@ -280,8 +337,8 @@ export function QuoteBuilder() {
               </div>
 
               {submit === 'error' && (
-                <p className="mt-4 text-sm text-red-600 dark:text-red-400">
-                  Network error — please retry or call {CONTACT.phoneDisplay}.
+                <p className="mt-4 text-sm text-danger dark:text-danger-dark" aria-live="polite">
+                  Network error - please retry or call {CONTACT.phoneDisplay}.
                 </p>
               )}
             </form>
@@ -289,35 +346,52 @@ export function QuoteBuilder() {
 
           {/* Real-time summary */}
           <GlassCard glow className="h-fit p-6 lg:col-span-2 lg:sticky lg:top-24">
-            <h3 className="flex items-center gap-2 text-lg font-bold text-zinc-900 dark:text-white">
+            <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-steel-950 dark:text-steel-50">
               <Package size={20} className="text-primary" aria-hidden="true" /> Request Summary
             </h3>
             <dl className="mt-5 space-y-3 text-sm">
-              <SummaryRow icon={Truck} label="Load Type" value={data.loadType || '—'} />
-              <SummaryRow icon={MapPin} label="Route" value={data.destination ? `${data.origin} → ${data.destination}` : '—'} />
-              <SummaryRow icon={Weight} label="Weight" value={data.weight ? `${data.weight} Tons` : '—'} />
-              <SummaryRow icon={User} label="Contact" value={data.name || '—'} />
+              <SummaryRow icon={Truck} label="Load Type" value={data.loadType || '-'} />
+              <SummaryRow
+                icon={MapPin}
+                label="Route"
+                value={data.destination ? `${data.origin} -> ${data.destination}` : '-'}
+              />
+              <SummaryRow
+                icon={Weight}
+                label="Weight"
+                value={data.weight ? `${data.weight} Tons` : '-'}
+                numeric={!!data.weight}
+              />
+              <SummaryRow icon={User} label="Contact" value={data.name || '-'} />
             </dl>
-            <div className="mt-5 rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs text-zinc-500 dark:border-white/10 dark:bg-white/[0.03] dark:text-zinc-400">
+            <div className="mt-5 rounded-xl border border-steel-300 bg-steel-100 p-4 text-xs text-steel-500 dark:border-steel-800 dark:bg-steel-850 dark:text-steel-400">
               No payment required. Our desk responds with a custom rate, usually within a few hours.
             </div>
           </GlassCard>
         </div>
-      </div>
+      </Container>
 
       {submit === 'success' && <SuccessModal onClose={reset} />}
-    </section>
+    </Section>
   );
 }
 
-function SummaryRow({ icon: Icon, label, value }) {
-  const filled = value && value !== '—';
+function SummaryRow({ icon: Icon, label, value, numeric = false }) {
+  const filled = value && value !== '-';
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-zinc-100 pb-3 last:border-0 dark:border-white/5">
-      <span className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400">
-        <Icon size={15} className="text-zinc-400 dark:text-zinc-500" aria-hidden="true" /> {label}
+    <div className="flex items-center justify-between gap-3 border-b border-steel-300 pb-3 last:border-0 dark:border-steel-800">
+      <span className="flex items-center gap-2 text-steel-600 dark:text-steel-400">
+        <Icon size={15} className="text-steel-500" aria-hidden="true" /> {label}
       </span>
-      <span className={`text-right font-semibold ${filled ? 'text-zinc-900 dark:text-white' : 'text-zinc-400 dark:text-zinc-600'}`}>{value}</span>
+      <span
+        className={[
+          'text-right font-semibold',
+          numeric ? 'tnum' : '',
+          filled ? 'text-steel-950 dark:text-steel-50' : 'text-steel-500',
+        ].join(' ')}
+      >
+        {value}
+      </span>
     </div>
   );
 }
@@ -325,19 +399,28 @@ function SummaryRow({ icon: Icon, label, value }) {
 function SuccessModal({ onClose }) {
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-steel-950/70 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="quote-success-title"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <GlassCard glow className="animate-fade-in-up w-full max-w-sm p-8 text-center motion-reduce:animate-none">
-        <button type="button" onClick={onClose} aria-label="Close" className="ml-auto block text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
+      <GlassCard glow className="w-full max-w-sm animate-fade-in-up rounded-2xl p-8 text-center shadow-e3 motion-reduce:animate-none">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="ml-auto block text-steel-500 transition-colors hover:text-steel-950 dark:hover:text-steel-50"
+        >
           <X size={20} />
         </button>
-        <CheckCircle2 size={56} className="mx-auto mb-4 text-emerald-500 dark:text-emerald-400" aria-hidden="true" />
-        <h4 id="quote-success-title" className="mb-2 text-xl font-bold text-zinc-900 dark:text-white">Request Received!</h4>
-        <p className="mb-6 text-zinc-600 dark:text-zinc-400">Thank you — our freight desk will reach out shortly with your custom rate.</p>
+        <CheckCircle2 size={56} className="mx-auto mb-4 text-success dark:text-success-dark" aria-hidden="true" />
+        <h4 id="quote-success-title" className="mb-2 font-display text-xl font-semibold text-steel-950 dark:text-steel-50">
+          Request Received!
+        </h4>
+        <p className="mb-6 text-steel-600 dark:text-steel-400">
+          Thank you - our transport desk will reach out shortly with your custom rate.
+        </p>
         <Button fullWidth onClick={onClose}>Done</Button>
       </GlassCard>
     </div>

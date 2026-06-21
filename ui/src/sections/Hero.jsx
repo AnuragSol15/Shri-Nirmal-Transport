@@ -2,6 +2,8 @@ import { ArrowRight, Truck, ShieldCheck, Clock } from 'lucide-react';
 import { HERO_IMAGE } from '../data/assets';
 import { COMPANY } from '../data/site';
 import { Button } from '../components/ui/Button';
+import { Container } from '../components/ui/Container';
+import { Eyebrow } from '../components/ui/Eyebrow';
 import { TrackWidget } from '../components/TrackWidget';
 
 const TRUST_PILLS = [
@@ -12,35 +14,57 @@ const TRUST_PILLS = [
 
 export function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden">
-      {/* Background image + layered dark gradient + grid */}
+    <section id="home" className="relative overflow-hidden bg-steel-950 text-steel-50">
+      {/* Duotone-treated hero image, anchored to the right, low presence */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-y-0 right-0 w-full bg-cover bg-center opacity-25 lg:w-3/5"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-ink-950 via-ink-950/95 to-ink-900/80" aria-hidden="true" />
-      <div className="absolute inset-0 bg-grid-lines bg-grid opacity-40" aria-hidden="true" />
-      <div className="absolute inset-x-0 top-0 h-[60vh] bg-radial-glow" aria-hidden="true" />
+      {/* Graphite wash so type stays legible over the image */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-steel-950 via-steel-950/90 to-steel-950/40"
+        aria-hidden="true"
+      />
+      {/* Engineering-drawing grid ruling */}
+      <div className="absolute inset-0 bg-grid-lines-dark bg-grid opacity-40" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:py-28 lg:px-8">
-        {/* LEFT — premium typography */}
-        <div className="animate-fade-in-up">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary backdrop-blur-md">
-            <span className="h-1.5 w-1.5 animate-glow-pulse rounded-full bg-primary" />
-            {COMPANY.tagline} · Indore
-          </span>
+      {/* One thin drawn-on diagonal primary route line */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 1440 800"
+        preserveAspectRatio="none"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M -40 760 L 520 420 L 980 300 L 1480 40"
+          stroke="#FF5722"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeDasharray="1000"
+          className="animate-draw-line opacity-60 motion-reduce:animate-none"
+        />
+      </svg>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Supply Chains,{' '}
-            <span className="bg-gradient-to-r from-primary-400 via-primary to-primary-600 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-x">
-              Delivered Daily.
-            </span>
+      <Container
+        size="wide"
+        className="relative z-10 grid items-center gap-10 py-20 lg:grid-cols-2 lg:gap-12 lg:py-28"
+      >
+        {/* LEFT - editorial headline + actions */}
+        <div className="animate-fade-in-up motion-reduce:animate-none">
+          <Eyebrow className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+            FTL & LTL - Daily Road Transport - Indore
+          </Eyebrow>
+
+          <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.02em] text-white">
+            Road transport that runs on schedule.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg text-zinc-300 sm:text-xl">
-            {COMPANY.name} {COMPANY.altName} moves Full-Truck & Part-Load freight from the
-            Indore hub across India — secure, tracked, and on schedule, every single day.
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel-300">
+            {COMPANY.name} {COMPANY.altName} moves Full-Truck and Part-Load cargo from the
+            Indore hub across Madhya Pradesh - secure, insured, and on schedule, every single day.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -48,7 +72,7 @@ export function Hero() {
               size="lg"
               onClick={() => document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Get a Freight Quote <ArrowRight size={20} />
+              Get a Transport Quote <ArrowRight size={20} aria-hidden="true" />
             </Button>
             <Button
               variant="ghost"
@@ -61,7 +85,7 @@ export function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
             {TRUST_PILLS.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 text-sm text-zinc-300">
+              <div key={label} className="flex items-center gap-2 text-sm text-steel-300">
                 <Icon size={18} className="text-primary" aria-hidden="true" />
                 {label}
               </div>
@@ -69,14 +93,17 @@ export function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — embedded floating tracking widget */}
-        <div className="animate-fade-in-up lg:pl-8 [animation-delay:120ms]">
+        {/* RIGHT - embedded tracking widget on a solid panel */}
+        <div className="animate-fade-in-up [animation-delay:120ms] motion-reduce:animate-none lg:pl-8">
           <TrackWidget />
         </div>
-      </div>
+      </Container>
 
-      {/* Bottom fade into next section (matches the Clients band in each theme) */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-zinc-50 to-transparent dark:from-zinc-950" aria-hidden="true" />
+      {/* Bottom fade into the next section (matches the page bg in each theme) */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-steel-50 to-transparent dark:from-steel-950"
+        aria-hidden="true"
+      />
     </section>
   );
 }

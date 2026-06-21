@@ -11,7 +11,7 @@ export const FLEET = [
     icon: 'Container',
     bestFor: ['FMCG & packaged goods', 'Electronics', 'Pharma & weather-sensitive cargo'],
     blurb:
-      'Fully enclosed, lockable bodies that shield cargo from rain, dust and pilferage - the default choice for high-value and moisture-sensitive freight.',
+      'Fully enclosed, lockable bodies that shield cargo from rain, dust and pilferage - the default choice for high-value and moisture-sensitive goods.',
   },
   {
     id: 'multi-axle',
@@ -23,7 +23,7 @@ export const FLEET = [
     icon: 'Truck',
     bestFor: ['Steel, cement & TMT bars', 'Industrial machinery', 'Bulk raw materials'],
     blurb:
-      'High-tonnage trailers engineered for dense, heavy and palletised industrial loads on long-haul national corridors.',
+      'High-tonnage trailers engineered for dense, heavy and palletised industrial loads on long-haul road routes.',
   },
   {
     id: 'open-truck',

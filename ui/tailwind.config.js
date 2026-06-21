@@ -7,45 +7,59 @@ export default {
       colors: {
         primary: {
           DEFAULT: '#FF5722',
-          50: '#FFF3EF',
+          50: '#FFF1EC',
           100: '#FFE0D6',
+          200: '#FFC4B0',
           400: '#FF7A52',
           500: '#FF5722',
-          600: '#E64A19',
-          700: '#D84315',
+          600: '#F4511E', // hover
+          700: '#C73D14', // pressed
+          soft: '#FFF1EC', // light tint bg behind icons / active fills
+          'soft-dark': '#2A1810', // dark tint bg
         },
-        secondary: {
-          DEFAULT: '#1E3A8A',
-          800: '#1B3478',
-          900: '#162B63',
+        // Single warm-graphite neutral ramp (replaces zinc/slate/sky/gray everywhere)
+        steel: {
+          50: '#FAF8F5', // page bg (light)
+          100: '#F5F2ED', // surface-2 / sunken
+          200: '#EFEAE3', // surface-3 / hover
+          300: '#E8E2D9', // border (light)
+          400: '#D6CEC2', // border-strong (light)
+          500: '#8A8178', // text-3 / muted (light)
+          600: '#5C5650', // text-2 / secondary (light)
+          700: '#463E37', // border-strong (dark)
+          800: '#332D28', // border (dark) / surface-3 (dark)
+          850: '#272220', // surface-2 (dark)
+          900: '#1F1B18', // surface (dark)
+          950: '#161311', // page bg (dark) / graphite band
+          1000: '#121009', // footer dark
         },
-        // Premium slate/navy hierarchy
-        ink: {
-          950: '#070B16',
-          900: '#0B1220',
-          800: '#111A2E',
-          700: '#1A263F',
-        },
+        success: { DEFAULT: '#1E8E5A', dark: '#34C77F' },
+        warning: { DEFAULT: '#C77A0E', dark: '#E5A23A' },
+        danger: { DEFAULT: '#D14343', dark: '#E5675C' },
+        info: { DEFAULT: '#3A6EA5', dark: '#6BA3D8' }, // never competes with orange
       },
       fontFamily: {
-        sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'grid-lines':
-          'linear-gradient(to right, rgba(148,163,184,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,0.06) 1px, transparent 1px)',
-        'dot-matrix':
-          'radial-gradient(circle, rgba(255,87,34,0.18) 1px, transparent 1px)',
-        'radial-glow':
-          'radial-gradient(60% 60% at 50% 0%, rgba(255,87,34,0.18) 0%, transparent 70%)',
+          'linear-gradient(to right, rgba(70,62,55,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(70,62,55,0.05) 1px, transparent 1px)',
+        'grid-lines-dark':
+          'linear-gradient(to right, rgba(245,242,237,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,242,237,0.04) 1px, transparent 1px)',
       },
       backgroundSize: {
-        grid: '48px 48px',
-        'dot-lg': '22px 22px',
+        grid: '40px 40px',
       },
       boxShadow: {
-        glow: '0 0 0 1px rgba(255,87,34,0.25), 0 18px 60px -15px rgba(255,87,34,0.45)',
-        'glow-sm': '0 10px 40px -12px rgba(255,87,34,0.4)',
-        glass: '0 20px 60px -20px rgba(0,0,0,0.6)',
+        e1: '0 1px 2px rgba(48,38,28,0.06), 0 1px 3px rgba(48,38,28,0.04)',
+        e2: '0 4px 12px rgba(48,38,28,0.07), 0 2px 6px rgba(48,38,28,0.05)',
+        e3: '0 12px 32px rgba(48,38,28,0.10), 0 4px 12px rgba(48,38,28,0.06)',
+        'focus-ring': '0 0 0 3px rgba(255,87,34,0.32)',
+        // back-compat aliases so unported class names still resolve during migration:
+        glow: '0 0 0 3px rgba(255,87,34,0.32)',
+        'glow-sm': '0 4px 12px rgba(48,38,28,0.07), 0 2px 6px rgba(48,38,28,0.05)',
+        glass: '0 12px 32px rgba(48,38,28,0.10), 0 4px 12px rgba(48,38,28,0.06)',
       },
       keyframes: {
         'infinite-scroll': {
@@ -53,32 +67,23 @@ export default {
           to: { transform: 'translateX(-50%)' },
         },
         'fade-in-up': {
-          from: { opacity: '0', transform: 'translateY(18px)' },
+          from: { opacity: '0', transform: 'translateY(16px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
         },
-        'glow-pulse': {
-          '0%, 100%': { opacity: '0.45' },
-          '50%': { opacity: '1' },
-        },
-        'gradient-x': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-        shimmer: {
-          '100%': { transform: 'translateX(100%)' },
+        'draw-line': {
+          from: { strokeDashoffset: '1000' },
+          to: { strokeDashoffset: '0' },
         },
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 40s linear infinite',
-        'fade-in-up': 'fade-in-up 0.6s ease-out both',
-        float: 'float 6s ease-in-out infinite',
-        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
-        'gradient-x': 'gradient-x 6s ease infinite',
-        shimmer: 'shimmer 2s infinite',
+        'fade-in-up': 'fade-in-up 0.4s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-in': 'fade-in 0.4s ease-out both',
+        'draw-line': 'draw-line 0.9s ease-in-out both',
       },
     },
   },

@@ -16,8 +16,10 @@ const OFFICES = [
 ];
 
 /**
- * Interactive multi-hub office map: a glassmorphic tab selector toggles between
- * the two location embeds within a single framed zone.
+ * Interactive multi-hub office map: a solid warm-steel tab selector toggles
+ * between the two location embeds within a single framed zone. The active tab
+ * is the one rationed-orange accent (no orange glow); the embed is keyed for a
+ * smooth fade on toggle.
  */
 export function MapWidget({ className = '' }) {
   const [activeId, setActiveId] = useState(OFFICES[0].id);
@@ -25,11 +27,11 @@ export function MapWidget({ className = '' }) {
 
   return (
     <div className={className}>
-      {/* Glassmorphic tab selector */}
+      {/* Solid tab selector - active tab is the single primary accent */}
       <div
         role="tablist"
         aria-label="Office locations"
-        className="mb-4 inline-flex gap-1 rounded-2xl border border-zinc-200/80 bg-white/60 p-1 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/5"
+        className="mb-4 inline-flex gap-1 rounded-lg border border-steel-300 bg-steel-100 p-1 dark:border-steel-800 dark:bg-steel-850"
       >
         {OFFICES.map((office) => {
           const selected = office.id === activeId;
@@ -40,10 +42,13 @@ export function MapWidget({ className = '' }) {
               aria-selected={selected}
               onClick={() => setActiveId(office.id)}
               className={[
-                'inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-300',
+                'inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold tracking-[0.01em]',
+                'transition-all duration-200',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70',
+                'focus-visible:ring-offset-2 ring-offset-steel-100 dark:ring-offset-steel-850',
                 selected
-                  ? 'bg-primary text-white shadow-glow-sm'
-                  : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white',
+                  ? 'border border-primary/50 bg-primary/10 text-primary'
+                  : 'border border-transparent text-steel-600 hover:bg-steel-200 hover:text-steel-950 dark:text-steel-300 dark:hover:bg-steel-800 dark:hover:text-steel-50',
               ].join(' ')}
             >
               <MapPin size={15} aria-hidden="true" />
@@ -54,7 +59,7 @@ export function MapWidget({ className = '' }) {
       </div>
 
       {/* Framed embed zone - keyed for a smooth fade on toggle */}
-      <div className="overflow-hidden rounded-2xl border border-zinc-200/80 shadow-lg shadow-zinc-300/30 dark:border-white/10 dark:shadow-glass">
+      <div className="overflow-hidden rounded-2xl border border-steel-300 shadow-e3 dark:border-steel-800">
         <iframe
           key={active.id}
           title={`Map - ${active.label}`}

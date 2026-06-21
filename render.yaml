@@ -50,6 +50,10 @@ services:
         sync: false          # e.g. https://api.yourdomain.com/api/quotes
       - key: VITE_WAITLIST_API
         sync: false          # e.g. https://api.yourdomain.com/api/waitlist
+      - key: VITE_SITE_URL
+        value: https://www.yourdomain.com   # swap to the real domain, then redeploy
+      - key: VITE_GA_ID
+        sync: false          # GA4 id e.g. G-XXXXXXXXXX (optional; blank disables analytics)
     headers:
       - path: /*
         name: X-Frame-Options

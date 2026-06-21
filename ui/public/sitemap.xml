@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Sitemap framework. Replace https://www.yourdomain.com with your live domain.
-  This is a single-page site; section anchors (#fleet, #network, #quote) are
-  parts of the one page, so only the homepage URL is listed as a crawlable page.
+  Replace https://www.yourdomain.com with your live domain before launch.
+  The homepage is a single page (section anchors #fleet, #network, #quote are
+  parts of it); /privacy is a separate crawlable page.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.yourdomain.com/</loc>
-    <lastmod>2026-06-09</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.yourdomain.com/privacy</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

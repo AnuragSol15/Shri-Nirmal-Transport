@@ -144,6 +144,7 @@ class QuoteRequest(BaseModel):
     cargo: str = Field("", description="Cargo description / special handling")
     name: str = Field(..., min_length=1, examples=["Anurag Solanki"])
     phone: str = Field(..., min_length=4, examples=["+91-88176-70032"])
+    email: str = Field("", description="Optional customer email", examples=["client@company.com"])
     hp: str = Field("", description="Honeypot - must be empty")
 
     @field_validator("loadType", "origin", "destination", "weight", "name", "phone")
@@ -160,6 +161,14 @@ class QuoteRequest(BaseModel):
         origin = (info.data.get("origin") or "").strip().lower()
         if origin and v.strip().lower() == origin:
             raise ValueError("Origin and destination must differ.")
+        return v
+
+    @field_validator("email")
+    @classmethod
+    def _optional_email(cls, v: str) -> str:
+        v = (v or "").strip()
+        if v and not EMAIL_RE.match(v):
+            raise ValueError("Please provide a valid email address or leave it blank.")
         return v
 
 
@@ -246,7 +255,13 @@ def _shell(title_kicker: str, inner: str, reference: str, received_at: str) -> s
 </html>"""
 
 
-def send_email(subject: str, html_body: str, text_body: str, reference: str) -> bool:
+def send_email(
+    subject: str,
+    html_body: str,
+    text_body: str,
+    reference: str,
+    reply_to: str | None = None,
+) -> bool:
     """Send via SMTP. Returns True if delivered, False if SMTP isn't configured."""
     if not (SMTP_SERVER and SMTP_USER and SMTP_PASSWORD):
         logger.warning(
@@ -258,7 +273,8 @@ def send_email(subject: str, html_body: str, text_body: str, reference: str) -> 
     message["Subject"] = subject
     message["From"] = formataddr((MAIL_FROM_NAME, MAIL_FROM))
     message["To"] = MAIL_TO
-    message["Reply-To"] = MAIL_TO
+    # Reply directly to the customer when we have their email; otherwise the inbox.
+    message["Reply-To"] = reply_to or MAIL_TO
     message["Date"] = formatdate(localtime=True)
     message.attach(MIMEText(text_body, "plain", "utf-8"))
     message.attach(MIMEText(html_body, "html", "utf-8"))
@@ -317,6 +333,7 @@ def create_quote(quote: QuoteRequest, request: Request) -> IntakeResponse:
         {_row("Cargo Details", quote.cargo)}
         {_row("Customer Name", quote.name)}
         {_row("Phone", quote.phone)}
+        {_row("Email", quote.email)}
       </table>"""
     html_body = _shell("New Freight Quote Request", inner, reference, received_at)
     text_body = (
@@ -327,11 +344,12 @@ def create_quote(quote: QuoteRequest, request: Request) -> IntakeResponse:
         f"Cargo Details    : {quote.cargo or '-'}\n"
         f"Customer Name    : {quote.name}\n"
         f"Phone            : {quote.phone}\n"
+        f"Email            : {quote.email or '-'}\n"
     )
     subject = f"Freight Quote {reference}: {quote.loadType} {quote.origin} -> {quote.destination} ({quote.name})"
 
     try:
-        delivered = send_email(subject, html_body, text_body, reference)
+        delivered = send_email(subject, html_body, text_body, reference, reply_to=quote.email or None)
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
@@ -374,7 +392,7 @@ def join_waitlist(payload: WaitlistRequest, request: Request) -> IntakeResponse:
     subject = f"Tracking Waitlist {reference}: {payload.email}"
 
     try:
-        delivered = send_email(subject, html_body, text_body, reference)
+        delivered = send_email(subject, html_body, text_body, reference, reply_to=payload.email)
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,

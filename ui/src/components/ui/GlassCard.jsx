@@ -1,20 +1,17 @@
 /**
- * Primary surface. Light mode: soft, grounded muted-slate card (not stark white).
- * Dark mode: glassmorphism. `glow` adds an orange ring; `hover` enables micro-lift.
+ * Primary surface card. Solid warm-steel surface (no glass/blur) in both themes.
+ * `glow` adds the "one highlighted card" device: a 2px primary left-rule.
+ * `hover` enables the single micro-lift idiom used across the site.
+ * Name kept as GlassCard for import compatibility.
  */
 export function GlassCard({ glow = false, hover = false, className = '', children, ...rest }) {
   return (
     <div
       className={[
-        'rounded-2xl border backdrop-blur-md transition',
-        // Light: warm muted fill, slightly stronger border + grounded shadow
-        'border-sky-100 bg-white/70 shadow-lg shadow-sky-200/30',
-        // Dark: glass
-        'dark:border-white/10 dark:bg-white/[0.04] dark:shadow-glass',
-        glow ? 'ring-1 ring-primary/20 dark:ring-primary/30 dark:shadow-glow-sm' : '',
-        hover
-          ? 'duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-sky-200/40 dark:hover:bg-white/[0.06]'
-          : '',
+        'rounded-xl border bg-white shadow-e1 transition',
+        'border-steel-300 dark:border-steel-800 dark:bg-steel-900',
+        glow ? 'border-l-2 border-l-primary' : '',
+        hover ? 'hover:-translate-y-0.5 hover:shadow-e2 motion-reduce:transform-none' : '',
         className,
       ].join(' ')}
       {...rest}
